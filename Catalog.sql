@@ -1,1 +1,12 @@
+-- Cataloges, schemas, and volumes.
 
+CREATE CATALOG IF NOT EXISTS olist_brazil;
+USE CATALOG olist_brazil;
+
+CREATE SCHEMA IF NOT EXISTS land;
+CREATE SCHEMA IF NOT EXISTS bronze;
+CREATE SCHEMA IF NOT EXISTS silver;
+CREATE SCHEMA IF NOT EXISTS gold;
+CREATE SCHEMA IF NOT EXISTS control;
+
+CREATE VOLUME IF NOT EXISTS land.olist_raw;
