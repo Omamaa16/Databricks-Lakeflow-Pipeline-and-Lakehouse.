@@ -59,7 +59,7 @@ WHERE t.customer IS NULL
 -------------------------------------------------------
 
 MERGE INTO olist_brazil.gold.dim_status t
-USING (SELECT DISTINCT order_status FROM olist_brazil.trn.order_final) s
+USING (SELECT DISTINCT order_status FROM olist_brazil.silver.order_final) s
 ON t.order_status=s.order_status
 WHEN NOT MATCHED 
 THEN INSERT (
@@ -76,7 +76,7 @@ THEN INSERT (
 ----------------------------------------------------
 
 MERGE INTO olist_brazil.gold.dim_payment t
-USING (SELECT DISTINCT payment_type, bronze_ingested FROM olist_brazil.trn.payment) s
+USING (SELECT DISTINCT payment_type, bronze_ingested FROM olist_brazil.silver.payment) s
 ON t.payment_type=s.payment_type
 WHEN NOT MATCHED 
 THEN INSERT (
