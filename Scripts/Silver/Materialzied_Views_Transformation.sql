@@ -4,7 +4,10 @@ lakeflow pipeline, using asset bundles; however, they have been compiled
 together for the documentation
 
 The expectations would fail the udate primarily due to the fact that the pk
-is duplicated; in case of further data violations, data would be quarantined*/
+is duplicated; in case of further data violations, data would be quarantined
+
+Full naming convention has not been used since the configuration was set up
+in the lakeflow pipeline UI*/
 -----------------------------------------------------------------------------
 
 -------------------------------------------------------------------------------
