@@ -1,22 +1,21 @@
--- Controlling DDLs
+-- Controlling tables DDL.
 
--- run_profile
 CREATE TABLE IF NOT EXISTS olist_brazil.control.run_profile (
-    run_id STRING,
-    layer STRING,
-    scope STRING,
-    start_ts TIMESTAMP,
-    end_ts TIMESTAMP,
-    status STRING,
-    remarks STRING
+    run_id              STRING    NOT NULL,
+    layer_name          STRING    NOT NULL,
+    scope_name          STRING    NOT NULL,
+    started_at          TIMESTAMP NOT NULL,
+    completed_at        TIMESTAMP,
+    run_status          STRING    NOT NULL,
+    remarks             STRING,
+    created_at          TIMESTAMP NOT NULL,
+    updated_at          TIMESTAMP NOT NULL
 )
 USING DELTA
 TBLPROPERTIES (
     'delta.enableChangeDataFeed' = 'true'
 );
 
-
--- ingestion_qaulity
 
 CREATE TABLE IF NOT EXISTS olist_brazil.control.ingestion_quality (
     run_id                  STRING    NOT NULL,
@@ -35,19 +34,19 @@ TBLPROPERTIES (
 );
 
 
--- table_profile
-
 CREATE TABLE IF NOT EXISTS olist_brazil.control.table_profile (
-    run_id STRING,
-    table_name STRING,
-    table_rows BIGINT,
-    table_columns INT,
-    table_schema STRING,
-    table_catalog STRING,
-    distinct_business_key_count BIGINT,
-    duplicate_business_key_count BIGINT,
-    null_business_key_count BIGINT,
-    run_ts TIMESTAMP
+    run_id                       STRING    NOT NULL,
+    layer_name                   STRING    NOT NULL,
+    table_catalog                STRING    NOT NULL,
+    table_schema                 STRING    NOT NULL,
+    table_name                   STRING    NOT NULL,
+    table_row_count              BIGINT    NOT NULL,
+    table_column_count           BIGINT    NOT NULL,
+    valid_business_key_count     BIGINT    NOT NULL,
+    distinct_business_key_count  BIGINT    NOT NULL,
+    duplicate_business_key_count BIGINT    NOT NULL,
+    null_business_key_count      BIGINT    NOT NULL,
+    profiled_at                  TIMESTAMP NOT NULL
 )
 USING DELTA
 TBLPROPERTIES (
@@ -55,20 +54,18 @@ TBLPROPERTIES (
 );
 
 
-/*duplicate keys
-only the table 'geolocation' had duplicates, hence, a duplicate table for this table only.*/
-
 CREATE TABLE IF NOT EXISTS olist_brazil.control.duplicate_keys (
-    profile_run_id STRING,
-    profile_run_ts TIMESTAMP,
-    layer_name STRING,
-    table_name STRING,
-    key_column STRING,
-    key_value STRING,
-    duplicate_count BIGINT
+    run_id           STRING    NOT NULL,
+    profiled_at      TIMESTAMP NOT NULL,
+    layer_name       STRING    NOT NULL,
+    table_catalog    STRING    NOT NULL,
+    table_schema     STRING    NOT NULL,
+    table_name       STRING    NOT NULL,
+    key_columns      STRING    NOT NULL,
+    key_value        STRING    NOT NULL,
+    duplicate_count  BIGINT    NOT NULL
 )
 USING DELTA
 TBLPROPERTIES (
-    'quality' = 'control',
     'delta.enableChangeDataFeed' = 'true'
 );
