@@ -1,4 +1,5 @@
-%sql
+--The function provides the standardized query for hash generation for the dims.
+
 CREATE FUNCTION IF NOT EXISTS olist_brazil.gold.generate_hash(
     col1 STRING, col2 STRING DEFAULT '', col3 STRING DEFAULT '')
 RETURNS STRING
